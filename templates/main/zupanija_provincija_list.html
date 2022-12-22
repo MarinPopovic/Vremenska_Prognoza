@@ -1,0 +1,12 @@
+{% extends "homepage.html" %}
+{% block content %}
+<br>
+<h2> Zupanije/provincije </h2>
+<hr>
+{% for ZupPro in zupanija_provincija_list  %}
+   <h4>Naziv zupanije/provincije: {{ ZupPro.Ime_Zupanije_provincije }}</h4>
+   <p>Sifra: {{ ZupPro.Sifra_zupanije_provincije }}</p>
+   <p>Meteoroloska stanica zupanije/provincije: {{ZupPro.Stanica}} </p>
+   <br>
+{% endfor %}
+{% endblock %}

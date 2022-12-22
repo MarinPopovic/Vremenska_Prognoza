@@ -1,0 +1,21 @@
+li {
+    list-style-type: none;
+    float: left;
+    overflow: hidden;
+}
+
+li a {
+    padding: 14px;
+    font-size: 19px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #5FEDFA;
+    color: white;
+  }
+
+body{
+
+    background-image: url(https://img.freepik.com/free-vector/white-gray-geometric-pattern-background-vector_53876-136510.jpg?w=1380&t=st=1671621009~exp=1671621609~hmac=ee6c0a03e98882dd374f9ece1eaac08f38fe1a199f1c31b2d1d7972f2f51ccbf);
+}

@@ -1,0 +1,12 @@
+{% extends "homepage.html" %}
+{% block content %}
+<br>
+<h2> Gradovi </h2>
+<hr>
+{% for grad in grad_list  %}
+   <h4>Naziv grada: {{ grad.Naziv_grada }}</h4>
+   <p>Postanski broj: {{ grad.Postanski_broj }}</p>
+   <p>Zupanija/provincija: {{ grad.Zupanija_Provincija_County }}</p>
+   <br>
+{% endfor %}
+{% endblock %}

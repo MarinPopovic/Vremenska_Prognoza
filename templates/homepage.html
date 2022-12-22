@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <title>{% block title %}Vremenska prognoza{% endblock %}</title>
+</head>
+
+<body>
+    <h1>Pocetna stranica</h1>
+    <div id="sidebar">
+        {% block sidebar %}
+        <div class="navigator">
+         <ul>
+            <li><a href="/main">Home</a></li>
+            <li><a href="/main/stanice">Stanice</a></li>
+            <li><a href="/main/zupanije">Zupanije/provincije</a></li>
+            <li><a href="/main/gradovi">Gradovi</a></li>
+            <li><a href="/main/prognoza">Prognoza</a></li>
+         </ul>
+        </div>
+        {% endblock %}
+    </div>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

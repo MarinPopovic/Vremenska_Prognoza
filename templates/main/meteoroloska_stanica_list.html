@@ -1,0 +1,11 @@
+{% extends "homepage.html" %}
+{% block content %}
+<br>
+<h2> Meteoroloske stanice </h2>
+<hr>
+{% for MetStan in meteoroloska_stanica_list  %}
+   <h4>Naziv stanice: {{ MetStan.Naziv_stanice }}</h4>
+   <p>Sifra: {{ MetStan.Sifra_stanice }}</p>
+   <br>
+{% endfor %}
+{% endblock %}

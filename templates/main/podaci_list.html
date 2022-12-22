@@ -1,0 +1,57 @@
+{% extends "homepage.html" %}
+{% block content %}
+
+<style>
+   .stupac{
+      text-align: center;
+   }
+
+   .margin_tablica{
+   margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+   }
+
+   table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+    }
+    
+    td, th {
+      border: 1px solid black;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+</style>
+
+<br>
+<h2> Prognoza </h2>
+<hr>
+
+<table class="margin_tablica">
+   <tr>
+      <th>Grad</th>
+      <th>Datum</th>
+      <th>Dio dana</th>
+      <th><p>Temperatura</th>
+      <th>Brzina vjetra</th>
+      <th>Oborine</th>
+      <th>Vlaznost</th>
+   </tr>
+{% for prog in podaci_list  %}
+      <tr>
+         <td>{{ prog.Grad_podaci.all }}</td>
+         <td>{{prog.Datum}}</td>
+         <td class="stupac">{{prog.Dio_dana}}</td>
+         <td>{{ prog.Temperatura_u_C }} °C</td>
+         <td>{{ prog.Vjetar_brzina}} km/h</td>
+         <td class="stupac">{{ prog.Oborine}} mm</td>
+         <td class="stupac">{{ prog.Vlaznost}}%</td>
+      </tr>
+{% endfor %}
+   </table>
+{% endblock %}
