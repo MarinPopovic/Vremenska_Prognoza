@@ -39,9 +39,9 @@
  {% if next %}
    {% if user.is_authenticated %}
      <p>Your account doesn't have access to this page. To proceed,
-     please login with an account that has access.</p>
+     please log in with an account that has access.</p>
    {% else %}
-     <p>Please login to see this page.</p>
+     <p>Please log in to see this page.</p>
    {% endif %}
 {% endif %}  
 
@@ -59,7 +59,7 @@
     </div>    
 
    <hr>
-   <input type="submit" value="Login" class="btn btn-primary">
+   <input type="submit" value="Log in" class="btn btn-primary">
    <input type="hidden" name="next" value="{{ next }}">
 
  </form>

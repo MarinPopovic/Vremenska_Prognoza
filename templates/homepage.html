@@ -38,7 +38,7 @@
             <li><a class="nav-link border border-primary" href="/main/zupanije">Županije</a></li>
             <li><a class="nav-link border border-primary" href="/main/gradovi">Gradovi</a></li>
             {% if user.is_superuser %}
-            <li><a class="nav-link border border-primary" href="/main/upload">Unos stanica</a></li>
+            <li><a class="nav-link border border-primary" href="/main/upload">Unos podataka</a></li>
             {% endif %}
             {% if user.is_authenticated %}
             <li><a class="nav-link border border-primary" href="{% url 'logout' %}" style="color: red;">Log Out</a></li>
