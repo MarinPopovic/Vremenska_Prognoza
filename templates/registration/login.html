@@ -1,0 +1,73 @@
+<!DOCTYPE html>  <!--http://127.0.0.1:8000/accounts/login/-->
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <style>
+      body,html {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: auto;
+        width: 60%;
+        padding: 20px;
+        background-image: url(https://img.freepik.com/free-vector/white-gray-geometric-pattern-background-vector_53876-136510.jpg?w=1380&t=st=1671621009~exp=1671621609~hmac=ee6c0a03e98882dd374f9ece1eaac08f38fe1a199f1c31b2d1d7972f2f51ccbf);
+       }
+        hr {
+             border: 1px solid #f1f1f1;
+             margin-bottom: 15px;
+        }
+        h4 {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="shadow p-4 mb-5 bg-white rounded">    
+ <h2>Login stranica</h2>
+ <p>Ispunite obrazac za login </p>
+ <hr>
+ {% if form.errors %}
+   <h4>Krivi username ili lozinka!</h4>
+ {% endif %}
+
+ {% if next %}
+   {% if user.is_authenticated %}
+     <p>Your account doesn't have access to this page. To proceed,
+     please login with an account that has access.</p>
+   {% else %}
+     <p>Please login to see this page.</p>
+   {% endif %}
+{% endif %}  
+
+ <form method='post' action="{% url 'login' %}">
+   {% csrf_token %}
+   
+
+    <div class="form-group">
+      <b>{{ form.username.label_tag }}</b>
+      <div>{{ form.username }}</div>
+    </div> 
+    <div class="form-group">
+      <b>{{ form.password.label_tag }}</b>
+      <div>{{ form.password }}</div>
+    </div>    
+
+   <hr>
+   <input type="submit" value="Login" class="btn btn-primary">
+   <input type="hidden" name="next" value="{{ next }}">
+
+ </form>
+
+
+ <p></p>
+ <p>Nemate account? <a href="/main/register">Sign up</a></p>
+</div>
+
+</body>
+</html>

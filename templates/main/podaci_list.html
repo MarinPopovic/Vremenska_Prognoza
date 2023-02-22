@@ -22,36 +22,90 @@
       text-align: left;
       padding: 8px;
     }
-    
+
     tr:nth-child(even) {
       background-color: #dddddd;
     }
+    
+    tr:nth-child(odd) {
+      background-color: #ffffff;
+    }    
+    tr:hover {
+      background-color: grey;
+    }
+    
+    tr:nth-child(even):hover {
+      background-color: grey;
+    }
+    
+    tr:nth-child(odd):hover {
+      background-color: grey;
+    }
+
 </style>
 
 <br>
-<h2> Prognoza </h2>
+<h3> Prognoza </h3>
 <hr>
+<form method=POST action="{% url 'search-podaci-date' %}">
+   {% csrf_token %}
+   <div class="input-group">
+    <input type="date" name="search" style="margin-bottom: 2px;"/>
+    <input value="Filtriraj" type="submit" class="btn border btn-light" style="margin-bottom: 2px;"/>
+  </div>
+</form>
+<form method=POST action="{% url 'search-podaci-grad' %}">
+   {% csrf_token %}
+   <div class="input-group">
+    <input type="text" name="search", placeholder="Ime grada"/>
+    <input value="Filtriraj" type="submit" class="btn border btn-light"/>
+   </div>
+</form>
+<br>
 
 <table class="margin_tablica">
    <tr>
       <th>Grad</th>
       <th>Datum</th>
       <th>Dio dana</th>
-      <th><p>Temperatura</th>
+      <th>Temperatura</th>
       <th>Brzina vjetra</th>
       <th>Oborine</th>
       <th>Vlaznost</th>
    </tr>
 {% for prog in podaci_list  %}
       <tr>
-         <td>{{ prog.Grad_podaci.all }}</td>
+         
+         {% for Grad_podaci in prog.Grad_podaci.all%}
+         <td>{{Grad_podaci}}</td>
+         {%endfor%}
+
          <td>{{prog.Datum}}</td>
          <td class="stupac">{{prog.Dio_dana}}</td>
          <td>{{ prog.Temperatura_u_C }} °C</td>
          <td>{{ prog.Vjetar_brzina}} km/h</td>
          <td class="stupac">{{ prog.Oborine}} mm</td>
          <td class="stupac">{{ prog.Vlaznost}}%</td>
+         {% if user.is_superuser %}
+         <form action="{%url 'delete-podaci' prog.id%}" method="POST" id="delete-form">
+         {% csrf_token %}
+         <td><input value="Delete" type="submit" class="btn btn-danger btn-sm" onclick="return potvrda()"/></td>
+          </form>
+         
+         <td>
+           
+            <a href="{% url 'update-podaci' prog.id%}"><input value="Update" type="submit" class="btn-secondary btn-sm"/></a>
+         </td>
+         {% endif %}
       </tr>
 {% endfor %}
    </table>
+
+   <script>
+      function potvrda() {
+          var prompt_message = "Jeste li sigurni da zelite obrisati ovaj podatak?";
+          return confirm(prompt_message);
+      }
+   </script>
+   
 {% endblock %}

@@ -1,0 +1,66 @@
+{% extends "homepage.html" %}
+{% block content %}
+
+<style>
+    .stupac{
+       text-align: center;
+    }
+ 
+    .margin_tablica{
+    margin-left: 50px;
+     margin-right: 50px;
+     margin-bottom: 50px;
+    }
+ 
+    table {
+       font-family: arial, sans-serif;
+       border-collapse: collapse;
+     }
+     
+     td, th {
+       border: 1px solid black;
+       text-align: left;
+       padding: 8px;
+     }
+     
+     tr:nth-child(even) {
+       background-color: #dddddd;
+     }
+ </style>
+
+  <br>
+  <h2>Rezultat pretrage za {{ search }}</h2>
+  <hr>
+
+  {% if search and podaci_datum%}
+   <br>
+   <table class="margin_tablica">
+    <tr>
+       <th>Grad</th>
+       <th>Datum</th>
+       <th>Dio dana</th>
+       <th><p>Temperatura</th>
+       <th>Brzina vjetra</th>
+       <th>Oborine</th>
+       <th>Vlaznost</th>
+    </tr>
+   {% for prognoza in podaci_datum %} 
+   <tr>
+    {% for Grad_podaci in prognoza.Grad_podaci.all%}
+         <td>{{Grad_podaci}}</td>
+    {%endfor%}
+    <td>{{ prognoza.Datum}}</td> 
+    <td>{{prognoza.Dio_dana}}</td> 
+    <td> {{ prognoza.Temperatura_u_C }} C</td>  
+    <td>{{prognoza.Vjetar_brzina}} km/h</td>  
+    <td>{{prognoza.Oborine}}mm</td>  
+    <td>{{prognoza.Vlaznost}}%</td>  
+    
+   </tr>
+   {% endfor %}
+   </table>
+
+  {% else %}
+  <h2>Nema rezultata za ovaj unos!</h2>
+  {% endif %}
+{% endblock %}

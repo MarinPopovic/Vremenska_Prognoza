@@ -1,12 +1,49 @@
 {% extends "homepage.html" %}
 {% block content %}
 <br>
-<h2> Zupanije/provincije </h2>
+<h3> Županije </h3>
 <hr>
+<form method=POST action="{% url 'search-zupanija' %}">
+   {% csrf_token %}
+   <div class="input-group">
+      <div class="form-outline"> 
+        <input type="text" name="search" placeholder="Unesite ime zupanije"/>
+        <input value="Pretraga" type="submit"/>
+    </div>
+   </div>
+</form>
+<br>
+
 {% for ZupPro in zupanija_provincija_list  %}
-   <h4>Naziv zupanije/provincije: {{ ZupPro.Ime_Zupanije_provincije }}</h4>
-   <p>Sifra: {{ ZupPro.Sifra_zupanije_provincije }}</p>
-   <p>Meteoroloska stanica zupanije/provincije: {{ZupPro.Stanica}} </p>
-   <br>
+<div class="card border" style="width: 25rem;">
+   <div class="card-body">
+     <h6>Naziv županije: {{ ZupPro.Ime_Zupanije_provincije }}</h6>
+      Šifra: {{ ZupPro.Sifra_zupanije_provincije }}
+     <p>Meteorološka stanica: {{ZupPro.Stanica}} </p>
+     <hr>
+
+<div class="btn-group" role="group">
+   {% if user.is_superuser %}
+   <a href="{% url 'update-zupanija' ZupPro.id%}"><input value="Update" type="submit" class="btn-secondary btn-sm"/></a>
+   {% endif %}
+
+   {% if user.is_superuser %}
+   <form action="{%url 'delete-zupanija' ZupPro.id%}" method="POST" id="delete-form">
+      {% csrf_token %}
+      <input value="Delete" type="submit" class="btn btn-danger btn-sm" style="margin-left: 1px;" onclick="return potvrda()"/>
+   </form>
+   {% endif %}
+   </div>
+  </div>
+</div>
+
+   <br><br>
+
+   <script>
+      function potvrda() {
+          var prompt_message = "Jeste li sigurni da zelite obrisati ovaj podatak?";
+          return confirm(prompt_message);
+      }
+   </script>
 {% endfor %}
 {% endblock %}

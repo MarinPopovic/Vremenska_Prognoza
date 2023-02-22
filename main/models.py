@@ -39,19 +39,26 @@ class Grad(models.Model):
         return f'{self.Naziv_grada}'
     
 class Podaci(models.Model):
-    Grad_podaci=models.ManyToManyField(Grad) #promijeniti ime Naziv_grada u Grad_podaci
-    Temperatura_u_C=models.FloatField() #Primjer podatka: 5°C
-    Vjetar_brzina=models.IntegerField() #Primjer podatka: 5 km/h
-    Oborine=models.FloatField() #Primjer podatka: 5.5°C
-    Vlaznost=models.IntegerField(validators=[ #Primjer podatka: 60%
+    Grad_podaci=models.ManyToManyField(Grad) 
+    Temperatura_u_C=models.FloatField(validators=[
+            MinValueValidator(-273.15)
+        ]) 
+    Vjetar_brzina=models.IntegerField(validators=[
+            MinValueValidator(0)
+        ]) 
+    Oborine=models.FloatField(validators=[
+            MinValueValidator(0)
+        ]) 
+    Vlaznost=models.IntegerField(validators=[ 
             MaxValueValidator(100),
             MinValueValidator(0)
         ])
-    Datum=models.DateField() #Formatirati prikaz: Ponedjeljak, 19. Prosinac
-    Dio_dana=models.CharField(max_length=15, default=0) #Primjer podatka: Jutro, podne, vecer
+    Datum=models.DateField() 
+    Dio_dana=models.CharField(max_length=15, default=0, 
+                              choices=(("Jutro","Jutro"), ("Popodne","Popodne"), ("Vecer","Vecer"))) 
     
     class Meta:
-        ordering = ['Datum', 'Dio_dana']
+        ordering = ['Datum', 'Dio_dana', 'Grad_podaci__Naziv_grada']
     
     def __str__(self):
         return f'Prognoza za {self.Grad_podaci.all()}, {self.Datum}, {self.Dio_dana}'

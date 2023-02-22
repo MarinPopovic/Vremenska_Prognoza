@@ -1,0 +1,69 @@
+{% extends "homepage.html" %}
+{% block content %}
+ <br> 
+ <h3>Unos podataka</h3>
+ <hr>
+
+ {% if submitted %}
+  Uspjesan unos!
+
+ {% else %}
+<div class="card-columns">
+  <div class="card border" >
+   <div><h5 class="card-header text-center">Unos Stanice</h5>
+     <div class="card-body">
+       <form action="" method=POST>
+       {% csrf_token %}
+
+       {{form.as_p}}
+        <input type="submit" value="Unos" class="btn border btn-light">
+        </form>
+      </div>
+   </div>
+  </div>
+ 
+ <br>
+ <div class="card border" >
+  <div><h5 class="card-header text-center">Unos Zupanije</h5>
+    <div class="card-body">
+      <form action="" method=POST>
+       {% csrf_token %}
+
+       {{form2.as_p}}
+       <input type="submit" value="Unos" class="btn border btn-light">
+       </form>
+      </div>
+    </div>
+  </div>
+ 
+ <br>
+ <div class="card border" >
+   <div><h5 class="card-header text-center">Unos Grada</h5>
+    <div class="card-body">
+      <form action="" method=POST>
+      {% csrf_token %}
+
+       {{form3.as_p}}
+       <input type="submit" value="Unos" class="btn border btn-light">
+       </form>
+      </div>
+    </div>
+  </div>
+ 
+ <br>
+ <div class="card border" style="width: 25rem;">
+  <div><h5 class="card-header text-center">Unos vremenske prognoze o gradu</h5>
+    <div class="card-body">
+      <form action="" method=POST>
+       {% csrf_token %}
+
+       {{form4.as_p}}
+        <input type="submit" value="Unos" class="btn border btn-light">
+        </form>
+      </div>
+    </div>
+  </div>
+
+ {% endif %}
+</div>
+{% endblock %}

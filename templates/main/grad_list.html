@@ -1,12 +1,46 @@
 {% extends "homepage.html" %}
 {% block content %}
+
 <br>
-<h2> Gradovi </h2>
+<h3> Gradovi </h3>
 <hr>
+<form method=POST action="{% url 'search-grad' %}">
+   {% csrf_token %}
+   <input type="text" name="search" placeholder="Unesite ime grada"/>
+   <input value="Pretraga" type="submit"/>
+</form>
+
+<br>
 {% for grad in grad_list  %}
-   <h4>Naziv grada: {{ grad.Naziv_grada }}</h4>
-   <p>Postanski broj: {{ grad.Postanski_broj }}</p>
-   <p>Zupanija/provincija: {{ grad.Zupanija_Provincija_County }}</p>
-   <br>
+<div class="card border" style="width: 20rem;">
+   <div class="card-body">
+     <h6>Naziv grada: {{ grad.Naziv_grada }}</h6>
+     Poštanski broj: {{ grad.Postanski_broj }}
+     <p>Županija: {{ grad.Zupanija_Provincija_County }}</p>
+     <hr>
+
+ <div class="btn-group" role="group">
+   {% if user.is_superuser %}
+   <a href="{% url 'update-grad' grad.id%}"><input value="Update" type="submit" class="btn-secondary btn-sm"/></a>
+   {% endif %}
+
+   {% if user.is_superuser %}
+   <form action="{%url 'delete-grad' grad.id%}" method="POST" id="delete-form">
+      {% csrf_token %}
+      <input value="Delete" type="submit" class="btn btn-danger btn-sm" style="margin-left: 1px;" onclick="return potvrda()"/>
+   </form>
+   {% endif %}
+  </div>
+ </div>
+</div>
+<br><br>
+
+<script>
+   function potvrda() {
+       var prompt_message = "Jeste li sigurni da zelite obrisati ovaj podatak?";
+       return confirm(prompt_message);
+   }
+</script>
+
 {% endfor %}
 {% endblock %}

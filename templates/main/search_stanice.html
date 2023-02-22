@@ -1,0 +1,20 @@
+{% extends "homepage.html" %}
+{% block content %}
+  <br>
+  <h2>Rezultat pretrage za {{ search }}</h2>
+  <hr>
+
+  {% if search %}
+  {% if stanica %}
+    <br>
+    {% for stanice in stanica %}
+      {{ stanice }}, {{ stanice.Sifra_stanice }}<br/>
+      <br>
+    {% endfor %}
+  {% else %}
+    <h2>Nema rezultata za ovaj unos!</h2>
+  {% endif %}
+{% else %}
+  <h2>Nema rezultata za ovaj unos!</h2>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "homepage.html" %}
+{% block content %}
+  <br>
+  <h2>Rezultat pretrage za {{ search }}</h2>
+  <hr>
+
+  {% if search %}
+  {% if grad %}
+  <br>
+  {% for gradovi in grad %}
+   {{ gradovi }}, {{ gradovi.Postanski_broj }}, Zupanija: {{ gradovi.Zupanija_Provincija_County }}<br/>
+   <br>
+  {% endfor %}
+  {% else %}
+    <h2>Nema rezultata za ovaj unos!</h2>
+  {% endif %}
+
+  {% else %}
+  <h2>Nema rezultata za ovaj unos!</h2>
+  {% endif %}
+{% endblock %}

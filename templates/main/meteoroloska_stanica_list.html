@@ -1,11 +1,51 @@
 {% extends "homepage.html" %}
 {% block content %}
-<br>
-<h2> Meteoroloske stanice </h2>
-<hr>
-{% for MetStan in meteoroloska_stanica_list  %}
-   <h4>Naziv stanice: {{ MetStan.Naziv_stanice }}</h4>
-   <p>Sifra: {{ MetStan.Sifra_stanice }}</p>
-   <br>
+<body>
+ <br>
+ <h3> Meteorološke stanice </h3>
+ <hr>
+ <form method=POST action="{% url 'search-stanice' %}">
+   {% csrf_token %}
+   <div class="input-group">
+    <div class="form-outline"> 
+       <input type="text" name="search" placeholder="Unesite ime stanice"/>
+       <input value="Pretraga" type="submit"/>
+     </div>
+   </div>
+ </form>
+ <br>
+ <div>
+ {% for MetStan in meteoroloska_stanica_list  %}
+ <div class="card border" style="width: 15rem;">
+   <div class="card-body">
+     <h6>Naziv stanice: {{ MetStan.Naziv_stanice }}</h6>
+     <p>Šifra: {{ MetStan.Sifra_stanice }}</p>  
+    <hr>
+    
+ <div class="btn-group" role="group" class="btn-toolbar">
+   {% if user.is_superuser %}
+   <a href="{% url 'update-stanica' MetStan.id%}"><input value="Update" type="submit" class="btn-secondary btn-sm"/></a>
+   {% endif %}
+
+   {% if user.is_superuser %}
+   <form action="{%url 'delete-stanica' MetStan.id%}" method="POST" id="delete-form">
+      {% csrf_token %}
+      <input value="Delete" type="submit" class="btn btn-danger btn-sm" style="margin-left: 1px;" onclick="return potvrda()"/>
+   </form>
+   {% endif %}
+    </div>
+  </div>
+ </div>
+   <br><br>
+ </div>
+
+ <script>
+  function potvrda() {
+      var prompt_message = "Jeste li sigurni da zelite obrisati ovaj podatak?";
+      return confirm(prompt_message);
+  }
+  </script>
+
+</body>
 {% endfor %}
 {% endblock %}

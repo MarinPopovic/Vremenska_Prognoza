@@ -1,0 +1,18 @@
+{% extends "homepage.html" %}
+{% block content %}
+      {% if user.is_authenticated %}
+      <p><a href="{% url 'logout' %}">Log Out</a></p>
+      {% else %}
+      <a href="{% url 'login' %}">Log In</a>
+      {% endif %}
+<br>
+<h2>Azuriranje podataka</h2>
+<hr>
+ <form action="" method=POST>
+    {% csrf_token %}
+    {{form.as_p}}
+    
+    <input type="submit" value="Update">
+ </form>
+
+{% endblock %}
